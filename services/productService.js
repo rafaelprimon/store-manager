@@ -32,8 +32,10 @@ const fourthRule = {
   statusCode: 422,
 };
 
+const minName = 5;
+
 const createProduct = async (name, quantity) => {
-  if (name.lenght <= 5) {
+  if (name.length < minName) {
     return firstRule;
   }
   if (quantity <= 0) {
