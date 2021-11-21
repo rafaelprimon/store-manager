@@ -32,6 +32,14 @@ const fourthRule = {
   statusCode: 422,
 };
 
+const sixthRule = {
+  err: {
+    code: 'invalid_data',
+    message: 'Wrong id format',
+  },
+  statusCode: 422,
+};
+
 const minName = 5;
 
 const createProduct = async (name, quantity) => {
@@ -52,6 +60,21 @@ const createProduct = async (name, quantity) => {
   return productModel.createProduct(name, quantity);
 };
 
+const allProducts = async () => {
+  const productAll = await productModel.allProducts();
+  return productAll;
+};
+
+const productId = async (id) => {
+  if (!id) {
+    return sixthRule;
+  }
+  const idProduct = await productModel.productId(id);
+  return idProduct;
+};
+
 module.exports = {
   createProduct,
+  allProducts,
+  productId,
 };
