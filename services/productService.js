@@ -88,9 +88,18 @@ const productUpdate = async (id, name, quantity) => {
   return updateProduct;
 };
 
+const productDelete = async (id) => {
+  if (!id) {
+    return sixthRule;
+  }
+  const deleteProduct = await productModel.productDelete(id);
+  return deleteProduct;
+};
+
 module.exports = {
   createProduct,
   allProducts,
   productId,
   productUpdate,
+  productDelete,
 };
