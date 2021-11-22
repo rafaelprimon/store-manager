@@ -15,11 +15,12 @@ const allProducts = async (_req, res) => {
 };
 
 const productId = async (req, res) => {
-  const { id } = req.params;
-  const idProduct = await productService.productId(id);
-  if (idProduct.err) {
-    return res.status(422).json(idProduct);
-  }
+  const idProduct = await productService.productId(req.params.id);
+  if (!idProduct) {
+    return res.status(422).json({ err: {
+      code: 'invalid_data',
+      message: 'Wrong id format' } });
+   }
   return res.status(200).json(idProduct);
 };
 
