@@ -8,11 +8,6 @@ const firstRule = {
   statusCode: 422,
 };
 
-const allSale = async () => {
-  const sales = await saleModel.allSale();
-  return sales;
-};
-
 const minItem = 1;
 
 const saleCreate = async (itensSold) => {
@@ -27,7 +22,18 @@ const saleCreate = async (itensSold) => {
   return { createSale };
 };
 
+const allSales = async () => {
+  const sale = await saleModel.allSales();
+  return sale;
+};
+
+const saleId = async (id) => {
+  const idSale = await saleModel.saleId(id);
+  return idSale;
+};
+
 module.exports = {
-  allSale,
   saleCreate,
+  allSales,
+  saleId,
 };

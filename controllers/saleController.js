@@ -1,10 +1,5 @@
 const saleService = require('../services/saleService');
 
-const allSale = async (req, res) => {
-  const sale = await saleService.allSale();
-  return res.status(200).json(sale);
-};
-
 const saleCreate = async (req, res) => {
   const itensSold = req.body;
   const { err, statusCode, createSale } = await saleService.saleCreate(itensSold);
@@ -12,7 +7,22 @@ const saleCreate = async (req, res) => {
   return res.status(200).json(createSale);
 };
 
+const allSales = async (_req, res) => {
+  const sale = await saleService.allSales();
+  return res.status(200).json({ sales: sale });
+};
+
+const saleId = async (req, res) => {
+  const { id } = req.params;
+  const idSale = await saleService.saleId(id);
+  if (!idSale) {
+    return res.status(404).json({ err: { code: 'not_found', message: 'Sale not found' } });
+  }
+  return res.status(200).json(idSale);
+};
+
 module.exports = {
-  allSale,
+  allSales,
   saleCreate,
+  saleId,
 };
