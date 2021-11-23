@@ -32,8 +32,23 @@ const saleId = async (id) => {
   return idSale;
 };
 
+function productValidation(product) {
+  const { quantity } = product;
+    return quantity <= 0 || typeof (quantity) !== 'number';
+}
+
+const saleUpdate = async (id, itensSold) => {
+  const updateSale = await saleModel.saleUpdate(id, itensSold);
+  const breakValidation = itensSold.some(productValidation);
+  if (breakValidation) {
+    return firstRule;
+  }
+  return { updateSale };
+};
+
 module.exports = {
   saleCreate,
   allSales,
   saleId,
+  saleUpdate,
 };

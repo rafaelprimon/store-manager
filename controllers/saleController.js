@@ -21,8 +21,16 @@ const saleId = async (req, res) => {
   return res.status(200).json(idSale);
 };
 
+const saleUpdate = async (req, res) => {
+  const { id } = req.params;
+  const itensSold = req.body;
+  const { err, statusCode } = await saleService.saleUpdate(id, itensSold);
+  if (err) return res.status(statusCode).json({ err });
+  res.status(200).json({ _id: id, itensSold });
+};
 module.exports = {
   allSales,
   saleCreate,
   saleId,
+  saleUpdate,
 };
